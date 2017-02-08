@@ -1,0 +1,9 @@
+#!/bin/bash
+cd ${CMSSW_BASE}/src/HH4b/AABH/BiasStudies; eval `scramv1 run -sh`
+root -b -q 'WSMakerForToys.C(0)'
+root -b -q 'WSMakerForToys.C(1)'
+combine datacards/toys_1600.txt -M GenerateOnly --setPhysicsModelParameters pdf_index=0 --freezeNuisances pdf_index --toysFrequentist -t 100 --expectSignal 5 --saveToys -m 1600 
+mv higgsCombineTest.GenerateOnly.mH1600.123456.root toys/higgsCombineTest.GenerateOnly.mH1600_mu5.root
+combine datacards/toys_1600.txt -M MaxLikelihoodFit --toysFile toys/higgsCombineTest.GenerateOnly.mH1600_mu5.root -t 100 --rMin -30 --rMax 60 --minimizerTolerance 0.1 --setPhysicsModelParameters pdf_index=0 --freezeNuisances pdf_index,CMS_sig_p1_jes,CMS_sig_p2_jer
+mv mlfit.root toys/mlfit_1600_mu5.root
+root -b -q 'BiasStudies.C(1600, 5)'
