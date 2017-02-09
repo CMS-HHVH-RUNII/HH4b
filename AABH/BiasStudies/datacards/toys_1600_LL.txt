@@ -1,0 +1,34 @@
+Datacard for LL region only: SR1=outputs/datacards/HH_mX_1600_HH_LL_QCD_13TeV.txt  AT1=outputs/datacards/HH_mX_1600_HH_LL_QCD_13TeV_fail.txt  
+imax 2 number of bins
+jmax 3 number of processes minus 1
+kmax 9 number of nuisance parameters
+----------------------------------------------------------------------------------------------------------------------------------
+shapes HH_LL_QCDEST_antitag               AT1                              workspaces/background_pdfs_cat_LL.root backgrounds_sb:roomultipdf_sb
+shapes Signal_mX_antitag_1600_HH_LL_QCD  AT1                               workspaces/w_signal_antitag_LL_1600.root HH4b:signal_fixed_antitag_
+shapes data_obs                          AT1                               workspaces/w_data_LL.root HH4b:data_obs_sb 
+shapes HH_LL_QCDEST                      SR1                               workspaces/background_pdfs_cat_LL.root backgrounds_sr:roomultipdf_sr
+shapes Signal_mX_1600_HH_LL_QCD          SR1                               workspaces/w_signal_LL_1600.root HH4b:signal_fixed_
+shapes data_obs                          SR1                               workspaces/w_data_LL.root HH4b:data_obs
+----------------------------------------------------------------------------------------------------------------------------------
+bin          SR1       AT1 
+observation  -1.0      -1.0 
+----------------------------------------------------------------------------------------------------------------------------------
+bin          SR1   SR1  AT1  AT1                             
+process      Signal_mX_1600_HH_LL_QCD  HH_LL_QCDEST  Signal_mX_antitag_1600_HH_LL_QCD  HH_LL_QCDEST_antitag 
+process      -3                        1             -2                                2                                        
+rate         27.4147                   1.0000        24.4475                           1.0000 
+----------------------------------------------------------------------------------------------------------------------------------
+CMS_JEC                 lnN         1.02  -  1.02   -  
+CMS_JER                 lnN         1.02  -  1.02   -  
+CMS_PDF_Scales          lnN         1.02  -  1.02   - 
+CMS_eff_tau21_sf        lnN         1.162084 -      1.162084  -  
+CMS_massJEC             lnN         1.02  -  1.02   -  
+lumi_13TeV              lnN         1.062    -      1.062  -  
+CMS_eff_trig            lnN         1.01     -      1.01   -  
+
+mjjlin_LL_    param  3.535e-05 3.215e-05
+R_LL          param  0.0948598659505 0.00552721982733
+bgSB_norm_LL  rateParam AT1 HH_LL_QCDEST_antitag 5056.89523638  
+n_exp_binHH4b_proc_EST_LL_  rateParam SR1 HH_LL_QCDEST @0*@1 bgSB_norm_LL,R_LL  
+
+pdf_index discrete
